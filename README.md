@@ -1,6 +1,4 @@
 # github_commands
-Certainly! Here's a concise README.md template with the list of commonly used Git and GitHub commands:
-
 ```markdown
 # Git and GitHub Commands Cheat Sheet
   ```
