@@ -3,9 +3,9 @@ Certainly! Here's a concise README.md template with the list of commonly used Gi
 
 ```markdown
 # Git and GitHub Commands Cheat Sheet
+  ```
 
 ## Git Commands
-
 1. **Initialize a new Git repository:**
    ```bash
    git init
@@ -126,5 +126,3 @@ Certainly! Here's a concise README.md template with the list of commonly used Gi
 10. **Fork a repository:**
     On GitHub, click the "Fork" button on the top right of a repository to create your own copy.
 ```
-
-Feel free to copy and paste this template into your README.md file in your project repository.
