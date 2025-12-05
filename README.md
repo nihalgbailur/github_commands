@@ -14,6 +14,7 @@
 [Branching](#-branching--merging) •
 [GitHub](#-github-workflows) •
 [Advanced](#-advanced-operations) •
+[Scenarios](#-daily-developer-scenarios) •
 [Troubleshooting](#-troubleshooting)
 
 ---
@@ -35,7 +36,8 @@
   - [Collaboration](#collaboration)
 - [⚡ Advanced Operations](#-advanced-operations)
 - [🔥 Troubleshooting](#-troubleshooting)
-- [📚 Additional Resources](#-additional-resources)
+- [� Daily Developer Scenarios](#-daily-developer-scenarios)
+- [�📚 Additional Resources](#-additional-resources)
 
 </details>
 
@@ -585,7 +587,153 @@ git commit
 
 ---
 
-## 📚 Additional Resources
+## � Daily Developer Scenarios
+
+> **Real-world situations you'll face every day** — copy-paste solutions that just work!
+
+<details>
+<summary><b>🔥 Scenario 1: "I need to quickly fix a bug in production!"</b></summary>
+
+**Situation:** You're working on a feature branch but an urgent bug needs fixing in production.
+
+```bash
+# 1. Stash your current work
+git stash save "WIP: feature in progress"
+
+# 2. Switch to main and get latest
+git checkout main
+git pull origin main
+
+# 3. Create a hotfix branch
+git checkout -b hotfix/critical-bug-fix
+
+# 4. Make your fix, then commit
+git add .
+git commit -m "fix: resolve critical production bug"
+
+# 5. Push and create PR
+git push -u origin hotfix/critical-bug-fix
+
+# 6. After merge, go back to your feature
+git checkout feature/your-feature
+git stash pop
+```
+
+</details>
+
+<details>
+<summary><b>🔄 Scenario 2: "My fork is behind the original repo!"</b></summary>
+
+**Situation:** You forked a repo weeks ago, now it's outdated and you need the latest changes.
+
+```bash
+# 1. Add upstream remote (one-time setup)
+git remote add upstream https://github.com/ORIGINAL_OWNER/repo.git
+
+# 2. Fetch upstream changes
+git fetch upstream
+
+# 3. Switch to your main branch
+git checkout main
+
+# 4. Merge upstream changes
+git merge upstream/main
+
+# 5. Push updated main to your fork
+git push origin main
+
+# 6. Update your feature branch too
+git checkout your-feature-branch
+git rebase main
+```
+
+</details>
+
+<details>
+<summary><b>👀 Scenario 3: "I need to review a colleague's PR locally!"</b></summary>
+
+**Situation:** A PR looks complex and you want to test it on your machine before approving.
+
+```bash
+# Method 1: Using GitHub CLI (recommended)
+gh pr checkout 123
+
+# Method 2: Manual fetch
+git fetch origin pull/123/head:pr-123
+git checkout pr-123
+
+# Test the changes...
+
+# When done, clean up
+git checkout main
+git branch -D pr-123
+```
+
+</details>
+
+<details>
+<summary><b>🧹 Scenario 4: "I have too many old local branches!"</b></summary>
+
+**Situation:** Your local repo is cluttered with old branches that are already merged.
+
+```bash
+# 1. See all local branches
+git branch
+
+# 2. See which are merged into main
+git branch --merged main
+
+# 3. Delete all merged branches (except main/master)
+git branch --merged main | grep -v "main\|master" | xargs git branch -d
+
+# 4. Also clean up remote tracking branches
+git fetch --prune
+
+# 5. See remote branches that no longer exist
+git branch -vv | grep ': gone]'
+
+# 6. Delete those stale local branches
+git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+```
+
+</details>
+
+<details>
+<summary><b>😱 Scenario 5: "I messed up my local repo completely!"</b></summary>
+
+**Situation:** You've tried multiple things and now your local repo is in a weird state.
+
+```bash
+# Option A: Reset to match remote exactly
+git fetch origin
+git reset --hard origin/main
+git clean -fd  # Remove untracked files
+
+# Option B: Start fresh but keep changes
+git stash --include-untracked
+git checkout main
+git reset --hard origin/main
+git stash pop  # Reapply your changes
+
+# Option C: Nuclear option - re-clone
+cd ..
+rm -rf repo-folder
+git clone https://github.com/user/repo.git
+
+# Check where things went wrong
+git reflog  # Shows all HEAD movements
+```
+
+**Prevention tip:** Create a backup branch before risky operations!
+```bash
+git branch backup-before-experiment
+```
+
+</details>
+
+---
+
+## �📚 Additional Resources
 
 | Resource | Description |
 |----------|-------------|
