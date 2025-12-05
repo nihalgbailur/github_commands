@@ -51,12 +51,6 @@ flowchart LR
     B --> C[📦 Stage]
     C --> D[💾 Commit]
     D --> E[🚀 Push]
-    
-    style A fill:#e1f5fe,stroke:#01579b
-    style B fill:#fff3e0,stroke:#e65100
-    style C fill:#f3e5f5,stroke:#7b1fa2
-    style D fill:#e8f5e9,stroke:#2e7d32
-    style E fill:#fce4ec,stroke:#c2185b
 ```
 
 <details>
@@ -150,10 +144,6 @@ flowchart TD
     B -->|git commit| C
     C -->|git push| D[☁️ Remote]
     D -->|git pull| A
-    
-    style Working fill:#fff3e0
-    style Staging fill:#e3f2fd
-    style Repository fill:#e8f5e9
 ```
 
 <details>
